@@ -113,6 +113,33 @@ public class Table
 		return builder.toString();
 	}
 
+	public String constructDeleteStatement(String column)
+	{
+		StringBuilder builder = new StringBuilder();
+		builder.append("DELETE FROM ");
+		builder.append(name);
+		builder.append(" WHERE ");
+		builder.append(column);
+		builder.append(" = ?");
+		return builder.toString();
+	}
+
+	public String constructDeleteStatement(String... columns)
+	{
+		StringBuilder builder = new StringBuilder();
+		builder.append("DELETE FROM ");
+		builder.append(name);
+		builder.append(" WHERE ");
+		for (int i = 0; i < columns.length - 1; i++) {
+			builder.append(columns[i]);
+			builder.append(" = ?");
+			builder.append(" AND ");
+		}
+		builder.append(columns[columns.length - 1]);
+		builder.append(" = ?");
+		return builder.toString();
+	}
+
 	public String constructSelectAllStatement()
 	{
 		String alias = "t";
@@ -141,7 +168,7 @@ public class Table
 
 	public String constructSelectEqualStatementOrderBySame(String columnName)
 	{
-		return constructSelectLikeStatementOrderBy(columnName, columnName);
+		return constructSelectEqualStatementOrderBy(columnName, columnName);
 	}
 
 	public String constructSelectEqualStatementOrderBy(String equalColumnName,
