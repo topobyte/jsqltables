@@ -28,7 +28,7 @@
 	</target>
 
 	<target name="compile" depends="init" description="compile the source ">
-		<javac srcdir="${src}" destdir="${build}" debug="on" debuglevel="lines,vars,source" includeantruntime="false">
+		<javac srcdir="${src}" destdir="${build}" debug="on" debuglevel="lines,vars,source" includeantruntime="false" target="1.6" source="1.6">
 			<classpath>
 				<fileset dir="${lib}">
 					<include name="*.jar" />
