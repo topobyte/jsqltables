@@ -18,6 +18,7 @@
 package de.topobyte.jsqltables.table;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -343,6 +344,49 @@ public class Table
 		builder.append(name);
 		builder.append(" WHERE ");
 		builder.append(equalColumnName);
+		builder.append(" = ?");
+		return builder.toString();
+	}
+
+	public String constructColumnNameList(String alias)
+	{
+		StringBuilder builder = new StringBuilder();
+		Iterator<TableColumn> iterator = columns.iterator();
+		while (iterator.hasNext()) {
+			builder.append(iterator.next().getName());
+			if (iterator.hasNext()) {
+				builder.append(", ");
+			}
+		}
+		return builder.toString();
+	}
+
+	public String constructUpdateStatement(String column)
+	{
+		StringBuilder builder = new StringBuilder();
+		builder.append("UPDATE ");
+		builder.append(name);
+		builder.append(" SET ");
+
+		int index = nameToIndex.get(column);
+		int num = columns.size() - 1;
+
+		int k = 0;
+		for (int i = 0; i < columns.size(); i++) {
+			if (i == index) {
+				continue;
+			}
+			k++;
+			TableColumn tc = columns.get(i);
+			builder.append(tc.getName());
+			builder.append(" = ?");
+			if (k < num) {
+				builder.append(", ");
+			}
+		}
+
+		builder.append(" WHERE ");
+		builder.append(column);
 		builder.append(" = ?");
 		return builder.toString();
 	}
