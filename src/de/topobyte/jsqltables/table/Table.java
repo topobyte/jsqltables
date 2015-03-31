@@ -280,13 +280,10 @@ public class Table
 				otherJoinColumnName, likeColumnName, likeColumnName);
 	}
 
-	public String constructJoinLikeStatementOrderBy(String otherTable,
-			String myJoinColumnName, String otherJoinColumnName,
-			String likeColumnName, String orderColumnName)
+	public StringBuilder constructJoinStatement(String alias1, String alias2,
+			String otherTable, String myJoinColumnName,
+			String otherJoinColumnName)
 	{
-		String alias1 = "t1";
-		String alias2 = "t2";
-
 		StringBuilder builder = new StringBuilder();
 		builder.append("SELECT * FROM ");
 		builder.append(name);
@@ -304,11 +301,47 @@ public class Table
 		builder.append(alias2);
 		builder.append(".");
 		builder.append(otherJoinColumnName);
+
+		return builder;
+	}
+
+	public String constructJoinLikeStatementOrderBy(String otherTable,
+			String myJoinColumnName, String otherJoinColumnName,
+			String likeColumnName, String orderColumnName)
+	{
+		String alias1 = "t1";
+		String alias2 = "t2";
+
+		StringBuilder builder = constructJoinStatement(alias1, alias2,
+				otherTable, myJoinColumnName, otherJoinColumnName);
+
 		builder.append(" WHERE ");
 		builder.append(alias1);
 		builder.append(".");
 		builder.append(likeColumnName);
 		builder.append(" LIKE ?");
+		builder.append(" ORDER BY ");
+		builder.append(alias1);
+		builder.append(".");
+		builder.append(orderColumnName);
+		return builder.toString();
+	}
+
+	public String constructJoinEqualStatementOrderBy(String otherTable,
+			String myJoinColumnName, String otherJoinColumnName,
+			String equalColumnName, String orderColumnName)
+	{
+		String alias1 = "t1";
+		String alias2 = "t2";
+
+		StringBuilder builder = constructJoinStatement(alias1, alias2,
+				otherTable, myJoinColumnName, otherJoinColumnName);
+
+		builder.append(" WHERE ");
+		builder.append(alias1);
+		builder.append(".");
+		builder.append(equalColumnName);
+		builder.append(" = ?");
 		builder.append(" ORDER BY ");
 		builder.append(alias1);
 		builder.append(".");
@@ -390,4 +423,5 @@ public class Table
 		builder.append(" = ?");
 		return builder.toString();
 	}
+
 }
