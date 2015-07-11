@@ -114,6 +114,14 @@ public class Table
 		return builder.toString();
 	}
 
+	public String constructDeleteStatement()
+	{
+		StringBuilder builder = new StringBuilder();
+		builder.append("DELETE FROM ");
+		builder.append(name);
+		return builder.toString();
+	}
+
 	public String constructDeleteStatement(String column)
 	{
 		StringBuilder builder = new StringBuilder();
