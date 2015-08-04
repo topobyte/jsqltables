@@ -22,6 +22,7 @@ import de.topobyte.jsqltables.query.BooleanOperator;
 import de.topobyte.jsqltables.query.CombinedCondition;
 import de.topobyte.jsqltables.query.CombinedOrder;
 import de.topobyte.jsqltables.query.Comparison;
+import de.topobyte.jsqltables.query.InCondition;
 import de.topobyte.jsqltables.query.OrderDirection;
 import de.topobyte.jsqltables.query.Select;
 import de.topobyte.jsqltables.query.SingleCondition;
@@ -66,8 +67,7 @@ public class TestQueries
 								"first_name", Comparison.LIKE),
 						new SingleCondition(select5b.getMainTable(),
 								"last_name", Comparison.EQUAL)),
-				new SingleCondition(select5b.getMainTable(), "foo",
-						Comparison.IN)));
+				new InCondition(select5b.getMainTable(), "foo", 5)));
 		System.out.println(select5b.sql());
 
 		Select select6 = new Select(Tables.TABLE_STUDENTS);

@@ -17,8 +17,46 @@
 
 package de.topobyte.jsqltables.query;
 
-public enum Comparison {
+public class InCondition implements Condition
+{
 
-	EQUAL, LIKE
+	private TableReference table;
+	private String column;
+	private int numValues;
+
+	public InCondition(TableReference table, String column, int numValues)
+	{
+		this.table = table;
+		this.column = column;
+		this.numValues = numValues;
+	}
+
+	public TableReference getTable()
+	{
+		return table;
+	}
+
+	public String getColumn()
+	{
+		return column;
+	}
+
+	public int getNumValues()
+	{
+		return numValues;
+	}
+
+	@Override
+	public void sql(StringBuilder b)
+	{
+		b.append(table.getAlias());
+		b.append(".");
+		b.append(column);
+		b.append(" IN (");
+		for (int i = 0; i < numValues - 1; i++) {
+			b.append("?,");
+		}
+		b.append("?)");
+	}
 
 }

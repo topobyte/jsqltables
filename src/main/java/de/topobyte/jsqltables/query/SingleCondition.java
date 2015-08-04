@@ -61,9 +61,6 @@ public class SingleCondition implements Condition
 		case LIKE:
 			b.append(" LIKE ");
 			break;
-		case IN:
-			b.append(" IN ");
-			break;
 		}
 		b.append("?");
 	}
