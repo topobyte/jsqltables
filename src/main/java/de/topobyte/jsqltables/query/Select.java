@@ -17,6 +17,8 @@
 
 package de.topobyte.jsqltables.query;
 
+import group.GroupBy;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +36,7 @@ public class Select
 	private List<Join> joins = new ArrayList<>();
 	private Condition condition = null;
 	private Order order;
+	private GroupBy group;
 
 	public Select(Table table)
 	{
@@ -69,6 +72,11 @@ public class Select
 	public void where(Condition condition)
 	{
 		this.condition = condition;
+	}
+
+	public void group(GroupBy group)
+	{
+		this.group = group;
 	}
 
 	public void order(Order order)
@@ -118,6 +126,10 @@ public class Select
 		if (condition != null) {
 			b.append(" WHERE ");
 			condition.sql(b);
+		}
+		if (group != null) {
+			b.append(" GROUP BY ");
+			group.sql(b);
 		}
 		if (order != null) {
 			b.append(" ORDER BY ");

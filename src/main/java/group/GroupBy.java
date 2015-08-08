@@ -15,36 +15,29 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with jsqltables. If not, see <http://www.gnu.org/licenses/>.
 
-package de.topobyte.jsqltables.query.select;
+package group;
 
+import de.topobyte.jsqltables.query.Appendable;
 import de.topobyte.jsqltables.query.TableReference;
 
-public class CountColumn extends AbstractColumn
+public class GroupBy implements Appendable
 {
 
-	private String alias;
-	private boolean distinct;
+	private TableReference table;
+	private String column;
 
-	public CountColumn(TableReference table, String columnName, String alias,
-			boolean distinct)
+	public GroupBy(TableReference table, String column)
 	{
-		super(table, columnName);
-		this.alias = alias;
-		this.distinct = distinct;
+		this.table = table;
+		this.column = column;
 	}
 
 	@Override
 	public void sql(StringBuilder b)
 	{
-		b.append("COUNT(");
-		if (distinct) {
-			b.append("DISTINCT ");
-		}
 		b.append(table.getAlias());
 		b.append(".");
-		b.append(columnName);
-		b.append(") ");
-		b.append(alias);
+		b.append(column);
 	}
 
 }

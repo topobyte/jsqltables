@@ -25,9 +25,9 @@ import java.util.List;
 public class CombinedOrder implements Order
 {
 
-	private List<SingleOrder> singles = new ArrayList<>();
+	private List<Order> singles = new ArrayList<>();
 
-	public CombinedOrder(SingleOrder... orders)
+	public CombinedOrder(Order... orders)
 	{
 		singles.addAll(Arrays.asList(orders));
 	}
@@ -35,9 +35,9 @@ public class CombinedOrder implements Order
 	@Override
 	public void sql(StringBuilder b)
 	{
-		Iterator<SingleOrder> iterator = singles.iterator();
+		Iterator<Order> iterator = singles.iterator();
 		while (iterator.hasNext()) {
-			SingleOrder order = iterator.next();
+			Order order = iterator.next();
 			order.sql(b);
 			if (iterator.hasNext()) {
 				b.append(", ");

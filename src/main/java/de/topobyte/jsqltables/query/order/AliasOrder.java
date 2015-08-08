@@ -15,36 +15,45 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with jsqltables. If not, see <http://www.gnu.org/licenses/>.
 
-package de.topobyte.jsqltables.query.select;
+package de.topobyte.jsqltables.query.order;
 
-import de.topobyte.jsqltables.query.TableReference;
 
-public class CountColumn extends AbstractColumn
+public class AliasOrder implements Order
 {
 
 	private String alias;
-	private boolean distinct;
+	private OrderDirection direction;
 
-	public CountColumn(TableReference table, String columnName, String alias,
-			boolean distinct)
+	public AliasOrder(String alias,
+			OrderDirection direction)
 	{
-		super(table, columnName);
 		this.alias = alias;
-		this.distinct = distinct;
+		this.direction = direction;
+	}
+
+	public String getAlias()
+	{
+		return alias;
+	}
+
+	public OrderDirection getDirection()
+	{
+		return direction;
 	}
 
 	@Override
 	public void sql(StringBuilder b)
 	{
-		b.append("COUNT(");
-		if (distinct) {
-			b.append("DISTINCT ");
-		}
-		b.append(table.getAlias());
-		b.append(".");
-		b.append(columnName);
-		b.append(") ");
 		b.append(alias);
+		switch (direction) {
+		default:
+		case ASC:
+			b.append(" ASC");
+			break;
+		case DESC:
+			b.append(" DESC");
+			break;
+		}
 	}
 
 }
