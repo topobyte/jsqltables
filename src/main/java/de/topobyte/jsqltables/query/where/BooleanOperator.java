@@ -15,39 +15,10 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with jsqltables. If not, see <http://www.gnu.org/licenses/>.
 
-package de.topobyte.jsqltables.query;
+package de.topobyte.jsqltables.query.where;
 
-public class CombinedCondition implements Condition
-{
+public enum BooleanOperator {
 
-	private BooleanOperator operator;
-	private Condition c1;
-	private Condition c2;
-
-	public CombinedCondition(BooleanOperator operator, Condition c1,
-			Condition c2)
-	{
-		this.operator = operator;
-		this.c1 = c1;
-		this.c2 = c2;
-	}
-
-	@Override
-	public void sql(StringBuilder b)
-	{
-		b.append("(");
-		c1.sql(b);
-		switch (operator) {
-		default:
-		case AND:
-			b.append(" AND ");
-			break;
-		case OR:
-			b.append(" OR ");
-			break;
-		}
-		c2.sql(b);
-		b.append(")");
-	}
+	AND, OR
 
 }

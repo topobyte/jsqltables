@@ -15,10 +15,32 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with jsqltables. If not, see <http://www.gnu.org/licenses/>.
 
-package de.topobyte.jsqltables.query;
+package de.topobyte.jsqltables.query.select;
 
-public enum OrderDirection {
+import de.topobyte.jsqltables.query.TableReference;
 
-	ASC, DESC
+public class CountColumn extends AbstractColumn
+{
+
+	private boolean distinct;
+
+	public CountColumn(TableReference table, String columnName, boolean distinct)
+	{
+		super(table, columnName);
+		this.distinct = distinct;
+	}
+
+	@Override
+	public void sql(StringBuilder b)
+	{
+		b.append("COUNT(");
+		if (distinct) {
+			b.append("DISTINCT ");
+		}
+		b.append(table.getAlias());
+		b.append(".");
+		b.append(columnName);
+		b.append(")");
+	}
 
 }

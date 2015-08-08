@@ -15,11 +15,10 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with jsqltables. If not, see <http://www.gnu.org/licenses/>.
 
-package de.topobyte.jsqltables.query;
+package de.topobyte.jsqltables.query.where;
 
-public interface Condition
-{
+public enum Comparison {
 
-	public void sql(StringBuilder b);
+	EQUAL, LIKE
 
 }

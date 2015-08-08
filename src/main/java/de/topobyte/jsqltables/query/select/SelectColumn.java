@@ -15,10 +15,11 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with jsqltables. If not, see <http://www.gnu.org/licenses/>.
 
-package de.topobyte.jsqltables.query;
+package de.topobyte.jsqltables.query.select;
 
-public enum BooleanOperator {
+import de.topobyte.jsqltables.query.Appendable;
 
-	AND, OR
+public interface SelectColumn extends Appendable
+{
 
 }

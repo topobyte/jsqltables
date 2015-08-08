@@ -15,34 +15,30 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with jsqltables. If not, see <http://www.gnu.org/licenses/>.
 
-package de.topobyte.jsqltables.query;
+package de.topobyte.jsqltables.query.select;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import de.topobyte.jsqltables.query.TableReference;
 
-public class CombinedOrder implements Order
+public abstract class AbstractColumn implements SelectColumn
 {
 
-	private List<SingleOrder> singles = new ArrayList<>();
+	protected TableReference table;
+	protected String columnName;
 
-	public CombinedOrder(SingleOrder... orders)
+	public AbstractColumn(TableReference table, String columnName)
 	{
-		singles.addAll(Arrays.asList(orders));
+		this.table = table;
+		this.columnName = columnName;
 	}
 
-	@Override
-	public void sql(StringBuilder b)
+	public TableReference getTable()
 	{
-		Iterator<SingleOrder> iterator = singles.iterator();
-		while (iterator.hasNext()) {
-			SingleOrder order = iterator.next();
-			order.sql(b);
-			if (iterator.hasNext()) {
-				b.append(", ");
-			}
-		}
+		return table;
+	}
+
+	public String getColumnName()
+	{
+		return columnName;
 	}
 
 }

@@ -20,11 +20,15 @@ package de.topobyte.jsqltables.query;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.topobyte.jsqltables.query.order.Order;
+import de.topobyte.jsqltables.query.select.SelectColumn;
+import de.topobyte.jsqltables.query.where.Condition;
 import de.topobyte.jsqltables.table.Table;
 
 public class Select
 {
 
+	private List<SelectColumn> selectColumns = new ArrayList<>();
 	private TableReference mainTable;
 	private List<TableReference> joinTables = new ArrayList<>();
 	private List<Join> joins = new ArrayList<>();
@@ -39,6 +43,11 @@ public class Select
 	public TableReference getMainTable()
 	{
 		return mainTable;
+	}
+
+	public void addSelectColumn(SelectColumn column)
+	{
+		selectColumns.add(column);
 	}
 
 	public TableReference join(Table table, String firstColumn,
@@ -75,7 +84,20 @@ public class Select
 	public String sql()
 	{
 		StringBuilder b = new StringBuilder();
-		b.append("SELECT * FROM ");
+		b.append("SELECT ");
+		if (selectColumns.size() == 0) {
+			b.append("*");
+		} else {
+			int n = selectColumns.size();
+			for (int i = 0; i < n; i++) {
+				SelectColumn column = selectColumns.get(i);
+				column.sql(b);
+				if (i < n - 1) {
+					b.append(",");
+				}
+			}
+		}
+		b.append(" FROM ");
 		b.append(mainTable.getTable().getName());
 		b.append(" ");
 		b.append(mainTable.getAlias());
@@ -103,5 +125,4 @@ public class Select
 		}
 		return b.toString();
 	}
-
 }

@@ -15,36 +15,16 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with jsqltables. If not, see <http://www.gnu.org/licenses/>.
 
-package de.topobyte.jsqltables.query;
+package de.topobyte.jsqltables.query.select;
 
-public class SingleCondition implements Condition
+import de.topobyte.jsqltables.query.TableReference;
+
+public class NormalColumn extends AbstractColumn
 {
 
-	private TableReference table;
-	private String column;
-	private Comparison comparison;
-
-	public SingleCondition(TableReference table, String column,
-			Comparison comparison)
+	public NormalColumn(TableReference table, String columnName)
 	{
-		this.table = table;
-		this.column = column;
-		this.comparison = comparison;
-	}
-
-	public TableReference getTable()
-	{
-		return table;
-	}
-
-	public String getColumn()
-	{
-		return column;
-	}
-
-	public Comparison getComparison()
-	{
-		return comparison;
+		super(table, columnName);
 	}
 
 	@Override
@@ -52,17 +32,7 @@ public class SingleCondition implements Condition
 	{
 		b.append(table.getAlias());
 		b.append(".");
-		b.append(column);
-		switch (comparison) {
-		default:
-		case EQUAL:
-			b.append(" = ");
-			break;
-		case LIKE:
-			b.append(" LIKE ");
-			break;
-		}
-		b.append("?");
+		b.append(columnName);
 	}
 
 }

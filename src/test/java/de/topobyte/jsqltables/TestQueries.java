@@ -18,16 +18,16 @@
 package de.topobyte.jsqltables;
 
 import de.topobyte.jsqltables.model.Tables;
-import de.topobyte.jsqltables.query.BooleanOperator;
-import de.topobyte.jsqltables.query.CombinedCondition;
-import de.topobyte.jsqltables.query.CombinedOrder;
-import de.topobyte.jsqltables.query.Comparison;
-import de.topobyte.jsqltables.query.InCondition;
-import de.topobyte.jsqltables.query.OrderDirection;
 import de.topobyte.jsqltables.query.Select;
-import de.topobyte.jsqltables.query.SingleCondition;
-import de.topobyte.jsqltables.query.SingleOrder;
 import de.topobyte.jsqltables.query.TableReference;
+import de.topobyte.jsqltables.query.order.CombinedOrder;
+import de.topobyte.jsqltables.query.order.OrderDirection;
+import de.topobyte.jsqltables.query.order.SingleOrder;
+import de.topobyte.jsqltables.query.where.BooleanOperator;
+import de.topobyte.jsqltables.query.where.CombinedCondition;
+import de.topobyte.jsqltables.query.where.Comparison;
+import de.topobyte.jsqltables.query.where.InCondition;
+import de.topobyte.jsqltables.query.where.SingleCondition;
 
 public class TestQueries
 {

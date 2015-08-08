@@ -17,8 +17,9 @@
 
 package de.topobyte.jsqltables.query;
 
-public enum Comparison {
+public interface Appendable
+{
 
-	EQUAL, LIKE
+	public void sql(StringBuilder b);
 
 }
