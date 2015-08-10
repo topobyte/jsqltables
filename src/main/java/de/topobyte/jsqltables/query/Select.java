@@ -34,6 +34,7 @@ public class Select
 	private TableReference mainTable;
 	private List<TableReference> joinTables = new ArrayList<>();
 	private List<Join> joins = new ArrayList<>();
+	private boolean distinct = false;
 	private Condition condition = null;
 	private Order order;
 	private GroupBy group;
@@ -69,6 +70,11 @@ public class Select
 		return joinTable;
 	}
 
+	public void distinct()
+	{
+		distinct = true;
+	}
+
 	public void where(Condition condition)
 	{
 		this.condition = condition;
@@ -93,6 +99,9 @@ public class Select
 	{
 		StringBuilder b = new StringBuilder();
 		b.append("SELECT ");
+		if (distinct) {
+			b.append("DISTINCT ");
+		}
 		if (selectColumns.size() == 0) {
 			b.append("*");
 		} else {
