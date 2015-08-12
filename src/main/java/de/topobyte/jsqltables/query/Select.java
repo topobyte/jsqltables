@@ -38,6 +38,7 @@ public class Select
 	private Condition condition = null;
 	private Order order;
 	private GroupBy group;
+	private LimitOffset limit = null;
 
 	public Select(Table table)
 	{
@@ -88,6 +89,11 @@ public class Select
 	public void order(Order order)
 	{
 		this.order = order;
+	}
+
+	public void limit(LimitOffset limit)
+	{
+		this.limit = limit;
 	}
 
 	private String alias(int n)
@@ -143,6 +149,12 @@ public class Select
 		if (order != null) {
 			b.append(" ORDER BY ");
 			order.sql(b);
+		}
+		if (limit != null) {
+			b.append(" LIMIT ");
+			b.append(limit.getLimit());
+			b.append(" OFFSET ");
+			b.append(limit.getOffset());
 		}
 		return b.toString();
 	}
