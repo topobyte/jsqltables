@@ -77,8 +77,16 @@ public class Table
 
 	public String constructCreateStatment()
 	{
+		return constructCreateStatment(false);
+	}
+
+	public String constructCreateStatment(boolean ignoreExisting)
+	{
 		StringBuilder builder = new StringBuilder();
 		builder.append("CREATE TABLE ");
+		if (ignoreExisting) {
+			builder.append("IF NOT EXISTS ");
+		}
 		builder.append(name);
 		builder.append(" (");
 		for (int i = 0; i < columns.size(); i++) {
