@@ -18,6 +18,7 @@
 package de.topobyte.jsqltables;
 
 import de.topobyte.jsqltables.model.Tables;
+import de.topobyte.jsqltables.query.Delete;
 import de.topobyte.jsqltables.query.Select;
 import de.topobyte.jsqltables.query.TableReference;
 import de.topobyte.jsqltables.query.Update;
@@ -105,6 +106,13 @@ public class TestQueries
 		update3.addColum("last_name");
 		update3.where(new SingleCondition(null, "matrikel", Comparison.EQUAL));
 		System.out.println(update3.sql());
+
+		Delete delete1 = new Delete(Tables.TABLE_STUDENTS);
+		System.out.println(delete1.sql());
+
+		Delete delete2 = new Delete(Tables.TABLE_STUDENTS);
+		delete2.where(new SingleCondition(null, "matrikel", Comparison.EQUAL));
+		System.out.println(delete2.sql());
 	}
 
 }
