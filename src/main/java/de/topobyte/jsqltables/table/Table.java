@@ -27,8 +27,8 @@ public class Table
 {
 
 	private String name;
-	private List<TableColumn> columns = new ArrayList<TableColumn>();
-	private Map<String, Integer> nameToIndex = new TreeMap<String, Integer>();
+	private List<TableColumn> columns = new ArrayList<>();
+	private Map<String, Integer> nameToIndex = new TreeMap<>();
 
 	public Table(String name)
 	{
