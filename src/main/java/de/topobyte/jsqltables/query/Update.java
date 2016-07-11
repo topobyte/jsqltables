@@ -23,7 +23,7 @@ import java.util.List;
 import de.topobyte.jsqltables.query.where.Condition;
 import de.topobyte.jsqltables.table.Table;
 
-public class Update
+public class Update implements Query
 {
 
 	private Table table;
@@ -50,6 +50,7 @@ public class Update
 		this.condition = condition;
 	}
 
+	@Override
 	public String sql()
 	{
 		StringBuilder b = new StringBuilder();

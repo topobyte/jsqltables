@@ -27,7 +27,7 @@ import de.topobyte.jsqltables.query.select.SelectColumn;
 import de.topobyte.jsqltables.query.where.Condition;
 import de.topobyte.jsqltables.table.Table;
 
-public class Select
+public class Select implements Query
 {
 
 	private List<SelectColumn> selectColumns = new ArrayList<>();
@@ -101,6 +101,7 @@ public class Select
 		return "t" + Integer.toString(n);
 	}
 
+	@Override
 	public String sql()
 	{
 		StringBuilder b = new StringBuilder();

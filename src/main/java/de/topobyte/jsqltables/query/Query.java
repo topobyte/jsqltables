@@ -17,41 +17,9 @@
 
 package de.topobyte.jsqltables.query;
 
-import de.topobyte.jsqltables.query.where.Condition;
-import de.topobyte.jsqltables.table.Table;
-
-public class Delete implements Query
+public interface Query
 {
 
-	private Table table;
-	private Condition condition = null;
-
-	public Delete(Table table)
-	{
-		this.table = table;
-	}
-
-	public Table getTable()
-	{
-		return table;
-	}
-
-	public void where(Condition condition)
-	{
-		this.condition = condition;
-	}
-
-	@Override
-	public String sql()
-	{
-		StringBuilder b = new StringBuilder();
-		b.append("DELETE FROM ");
-		b.append(table.getName());
-		if (condition != null) {
-			b.append(" WHERE ");
-			condition.sql(b);
-		}
-		return b.toString();
-	}
+	public String sql();
 
 }
