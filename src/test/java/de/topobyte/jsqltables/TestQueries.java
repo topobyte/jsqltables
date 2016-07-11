@@ -31,6 +31,7 @@ import de.topobyte.jsqltables.query.where.SingleCondition;
 
 public class TestQueries
 {
+
 	public static void main(String[] args)
 	{
 		Select select1 = new Select(Tables.TABLE_STUDENTS);
@@ -89,4 +90,5 @@ public class TestQueries
 				.getMainTable(), "first_name", OrderDirection.ASC)));
 		System.out.println(select7.sql());
 	}
+
 }
