@@ -51,8 +51,10 @@ public class InCondition implements Condition
 	@Override
 	public void sql(StringBuilder b)
 	{
-		b.append(table.getAlias());
-		b.append(".");
+		if (table != null) {
+			b.append(table.getAlias());
+			b.append(".");
+		}
 		b.append(column);
 		b.append(" IN (");
 		for (int i = 0; i < numValues - 1; i++) {

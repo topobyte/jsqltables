@@ -52,8 +52,10 @@ public class SingleCondition implements Condition
 	@Override
 	public void sql(StringBuilder b)
 	{
-		b.append(table.getAlias());
-		b.append(".");
+		if (table != null) {
+			b.append(table.getAlias());
+			b.append(".");
+		}
 		b.append(column);
 		switch (comparison) {
 		default:

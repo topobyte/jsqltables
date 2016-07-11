@@ -20,6 +20,7 @@ package de.topobyte.jsqltables;
 import de.topobyte.jsqltables.model.Tables;
 import de.topobyte.jsqltables.query.Select;
 import de.topobyte.jsqltables.query.TableReference;
+import de.topobyte.jsqltables.query.Update;
 import de.topobyte.jsqltables.query.order.CombinedOrder;
 import de.topobyte.jsqltables.query.order.OrderDirection;
 import de.topobyte.jsqltables.query.order.SingleOrder;
@@ -89,6 +90,21 @@ public class TestQueries
 				"last_name", OrderDirection.DESC), new SingleOrder(select7
 				.getMainTable(), "first_name", OrderDirection.ASC)));
 		System.out.println(select7.sql());
+
+		Update update1 = new Update(Tables.TABLE_STUDENTS);
+		update1.addColum("first_name");
+		System.out.println(update1.sql());
+
+		Update update2 = new Update(Tables.TABLE_STUDENTS);
+		update2.addColum("first_name");
+		update2.where(new SingleCondition(null, "matrikel", Comparison.EQUAL));
+		System.out.println(update2.sql());
+
+		Update update3 = new Update(Tables.TABLE_STUDENTS);
+		update3.addColum("first_name");
+		update3.addColum("last_name");
+		update3.where(new SingleCondition(null, "matrikel", Comparison.EQUAL));
+		System.out.println(update3.sql());
 	}
 
 }
