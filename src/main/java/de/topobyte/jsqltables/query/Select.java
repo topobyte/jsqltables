@@ -17,11 +17,10 @@
 
 package de.topobyte.jsqltables.query;
 
-import group.GroupBy;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import de.topobyte.jsqltables.query.group.GroupBy;
 import de.topobyte.jsqltables.query.order.Order;
 import de.topobyte.jsqltables.query.select.SelectColumn;
 import de.topobyte.jsqltables.query.where.Condition;

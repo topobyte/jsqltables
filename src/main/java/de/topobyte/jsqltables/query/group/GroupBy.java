@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with jsqltables. If not, see <http://www.gnu.org/licenses/>.
 
-package group;
+package de.topobyte.jsqltables.query.group;
 
 import de.topobyte.jsqltables.query.Appendable;
 import de.topobyte.jsqltables.query.TableReference;
