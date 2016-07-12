@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import de.topobyte.jsqltables.index.Indexes;
+
 public class Table
 {
 
@@ -438,6 +440,16 @@ public class Table
 		builder.append(column);
 		builder.append(" = ?");
 		return builder.toString();
+	}
+
+	public String createIndex(String name, String... columns)
+	{
+		return Indexes.createStatement(this, name, columns);
+	}
+
+	public String createIndex(String name, List<String> columns)
+	{
+		return Indexes.createStatement(this, name, columns);
 	}
 
 }
