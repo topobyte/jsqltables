@@ -31,10 +31,24 @@ public class Indexes
 		return createStatement(table, name, Arrays.asList(columns));
 	}
 
+	public static String createStatement(Table table, String name,
+			boolean ignoreExisting, String... columns)
+	{
+		return createStatement(table, name, ignoreExisting,
+				Arrays.asList(columns));
+	}
+
 	public static String createStatement(String tableName, String name,
 			String... columns)
 	{
 		return createStatement(tableName, name, Arrays.asList(columns));
+	}
+
+	public static String createStatement(String tableName, String name,
+			boolean ignoreExisting, String... columns)
+	{
+		return createStatement(tableName, name, ignoreExisting,
+				Arrays.asList(columns));
 	}
 
 	public static String createStatement(Table table, String name,
@@ -43,11 +57,26 @@ public class Indexes
 		return createStatement(table.getName(), name, columns);
 	}
 
+	public static String createStatement(Table table, String name,
+			boolean ignoreExisting, List<String> columns)
+	{
+		return createStatement(table.getName(), name, ignoreExisting, columns);
+	}
+
 	public static String createStatement(String tableName, String name,
 			List<String> columns)
 	{
+		return createStatement(tableName, name, false, columns);
+	}
+
+	public static String createStatement(String tableName, String name,
+			boolean ignoreExisting, List<String> columns)
+	{
 		StringBuilder builder = new StringBuilder();
 		builder.append("CREATE INDEX ");
+		if (ignoreExisting) {
+			builder.append("IF NOT EXISTS ");
+		}
 		builder.append(name);
 		builder.append(" ON ");
 		builder.append(tableName);

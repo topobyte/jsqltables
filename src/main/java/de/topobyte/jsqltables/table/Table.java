@@ -447,9 +447,21 @@ public class Table
 		return Indexes.createStatement(this, name, columns);
 	}
 
+	public String createIndex(String name, boolean ignoreExisting,
+			String... columns)
+	{
+		return Indexes.createStatement(this, name, ignoreExisting, columns);
+	}
+
 	public String createIndex(String name, List<String> columns)
 	{
 		return Indexes.createStatement(this, name, columns);
+	}
+
+	public String createIndex(String name, boolean ignoreExisting,
+			List<String> columns)
+	{
+		return Indexes.createStatement(this, name, ignoreExisting, columns);
 	}
 
 }
