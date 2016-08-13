@@ -15,13 +15,28 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with jsqltables. If not, see <http://www.gnu.org/licenses/>.
 
-package de.topobyte.jsqltables.table;
+package de.topobyte.jsqltables.dialect;
 
-public enum ColumnClass {
+import de.topobyte.jsqltables.table.ColumnClass;
 
-	INT,
-	LONG,
-	DOUBLE,
-	VARCHAR;
+public class DefaultDialect implements Dialect
+{
+
+	@Override
+	public String getSqlKeyword(ColumnClass cc)
+	{
+		switch (cc) {
+		case DOUBLE:
+			return "double";
+		case INT:
+			return "integer";
+		case LONG:
+			return "bigint";
+		case VARCHAR:
+			return "varchar";
+		default:
+			return null;
+		}
+	}
 
 }

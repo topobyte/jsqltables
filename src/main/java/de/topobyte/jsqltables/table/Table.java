@@ -133,36 +133,16 @@ public class Table
 		return columns.size();
 	}
 
-	public String constructCreateStatment()
+	/**
+	 * Get the i'th column of this table (1-based)
+	 * 
+	 * @param index
+	 *            the index of the column.
+	 * @return the column.
+	 */
+	public TableColumn getColumn(int index)
 	{
-		return constructCreateStatment(false);
-	}
-
-	public String constructCreateStatment(boolean ignoreExisting)
-	{
-		StringBuilder builder = new StringBuilder();
-		builder.append("CREATE TABLE ");
-		if (ignoreExisting) {
-			builder.append("IF NOT EXISTS ");
-		}
-		builder.append(name);
-		builder.append(" (");
-		for (int i = 0; i < columns.size(); i++) {
-			TableColumn column = columns.get(i);
-			builder.append(column.getName());
-			builder.append(" ");
-			builder.append(ColumnClass.getSqlKeyword(column.getColumnClass()));
-			if (column.getColumnExtension() == ColumnExtension.PRIMARY_AUTO_INCREMENT) {
-				builder.append(" PRIMARY KEY AUTOINCREMENT");
-			} else if (column.getColumnExtension() == ColumnExtension.COLLATE_NOCASE) {
-				builder.append(" COLLATE NOCASE");
-			}
-			if (i < columns.size() - 1) {
-				builder.append(", ");
-			}
-		}
-		builder.append(")");
-		return builder.toString();
+		return columns.get(index - 1);
 	}
 
 	public String constructSelectSingleStatement(String column)
@@ -420,19 +400,6 @@ public class Table
 		builder.append(alias1);
 		builder.append(".");
 		builder.append(orderColumnName);
-		return builder.toString();
-	}
-
-	public String constructInsertStatement()
-	{
-		StringBuilder builder = new StringBuilder();
-		builder.append("INSERT INTO ");
-		builder.append(name);
-		builder.append(" VALUES (");
-		for (int i = 0; i < columns.size() - 1; i++) {
-			builder.append("?, ");
-		}
-		builder.append("?)");
 		return builder.toString();
 	}
 
