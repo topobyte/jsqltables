@@ -32,21 +32,52 @@ public class Table
 	private List<TableColumn> columns = new ArrayList<>();
 	private Map<String, Integer> nameToIndex = new TreeMap<>();
 
+	/**
+	 * Create a new table with the specified name.
+	 * 
+	 * @param name
+	 *            the name of the table.
+	 */
 	public Table(String name)
 	{
 		this.name = name;
 	}
 
+	/**
+	 * Get the name of this table.
+	 * 
+	 * @return the table's name.
+	 */
 	public String getName()
 	{
 		return name;
 	}
 
+	/**
+	 * Add a new column to this table.
+	 * 
+	 * @param cc
+	 *            the type of the column.
+	 * @param name
+	 *            the name of the column.
+	 * @return the 1-based index of the new column
+	 */
 	public int addColumn(ColumnClass cc, String name)
 	{
 		return addColumn(cc, name, ColumnExtension.NONE);
 	}
 
+	/**
+	 * Add a new column to this table.
+	 * 
+	 * @param cc
+	 *            the type of the column.
+	 * @param name
+	 *            the name of the column.
+	 * @param ce
+	 *            a column extension to add.
+	 * @return the 1-based index of the new column
+	 */
 	public int addColumn(ColumnClass cc, String name, ColumnExtension ce)
 	{
 		int index = columns.size() + 1;
@@ -55,6 +86,16 @@ public class Table
 		return index;
 	}
 
+	/**
+	 * Get the 1-based index of the specified column. This method throws a
+	 * {@link NoSuchColumnException} if no column with the specified name
+	 * exists.
+	 * 
+	 * @param name
+	 *            the name of the column.
+	 * @return the 1-based index within this table.
+	 * @throws NoSuchColumnException
+	 */
 	public int getColumnIndex(String name) throws NoSuchColumnException
 	{
 		Integer index = nameToIndex.get(name);
@@ -64,6 +105,15 @@ public class Table
 		return index;
 	}
 
+	/**
+	 * Get the 1-based index of the specified column. This method returns 0 if
+	 * no column with the specified name exists.
+	 * 
+	 * @param name
+	 *            the name of the column.
+	 * @return the 1-based index within this table.
+	 * @throws NoSuchColumnException
+	 */
 	public int getColumnIndexSafe(String columnName)
 	{
 		try {
@@ -73,6 +123,11 @@ public class Table
 		}
 	}
 
+	/**
+	 * Get the number of columns of this table.
+	 * 
+	 * @return the number of columns.
+	 */
 	public int getNumberOfColumns()
 	{
 		return columns.size();
