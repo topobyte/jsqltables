@@ -42,16 +42,17 @@ public class Table
 		return name;
 	}
 
-	public void addColumn(ColumnClass cc, String name)
+	public int addColumn(ColumnClass cc, String name)
 	{
-		addColumn(cc, name, ColumnExtension.NONE);
+		return addColumn(cc, name, ColumnExtension.NONE);
 	}
 
-	public void addColumn(ColumnClass cc, String name, ColumnExtension ce)
+	public int addColumn(ColumnClass cc, String name, ColumnExtension ce)
 	{
-		int index = columns.size();
+		int index = columns.size() + 1;
 		columns.add(new TableColumn(cc, name, ce));
 		nameToIndex.put(name, index);
+		return index;
 	}
 
 	public int getColumnIndex(String name) throws NoSuchColumnException
@@ -66,7 +67,7 @@ public class Table
 	public int getColumnIndexSafe(String columnName)
 	{
 		try {
-			return 1 + getColumnIndex(columnName);
+			return getColumnIndex(columnName);
 		} catch (NoSuchColumnException e) {
 			return 0;
 		}
