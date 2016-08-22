@@ -6,25 +6,19 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'maven'
 
+if (project.hasProperty("topobyte")) {
+    apply from: 'file:///' + System.getProperty("user.home") \
+        + '/.gradle/topobyte.gradle'
+}
+
 group = pGroup
 version = pVersion
 
 repositories {
-    maven {
-        url maven_path_topobyte
-    }
     mavenCentral()
 }
 
 dependencies {
-}
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-	    repository(url: maven_url_topobyte)
-        }
-    }
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
