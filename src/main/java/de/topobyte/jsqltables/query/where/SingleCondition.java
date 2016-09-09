@@ -62,8 +62,23 @@ public class SingleCondition implements Condition
 		case EQUAL:
 			b.append(" = ");
 			break;
+		case NOT_EQUAL:
+			b.append(" != ");
+			break;
 		case LIKE:
 			b.append(" LIKE ");
+			break;
+		case LESS_THAN:
+			b.append(" < ");
+			break;
+		case LESS_THAN_OR_EQUAL:
+			b.append(" <= ");
+			break;
+		case GREATER_THAN:
+			b.append(" > ");
+			break;
+		case GREATER_THAN_OR_EQUAL:
+			b.append(" >= ");
 			break;
 		}
 		b.append("?");

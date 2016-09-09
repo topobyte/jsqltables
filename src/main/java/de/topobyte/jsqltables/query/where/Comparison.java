@@ -19,6 +19,12 @@ package de.topobyte.jsqltables.query.where;
 
 public enum Comparison {
 
-	EQUAL, LIKE
+	EQUAL,
+	NOT_EQUAL,
+	LESS_THAN,
+	LESS_THAN_OR_EQUAL,
+	GREATER_THAN,
+	GREATER_THAN_OR_EQUAL,
+	LIKE,
 
 }
