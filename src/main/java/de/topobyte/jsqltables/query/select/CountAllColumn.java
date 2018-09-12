@@ -17,7 +17,6 @@
 
 package de.topobyte.jsqltables.query.select;
 
-
 public class CountAllColumn implements SelectColumn
 {
 

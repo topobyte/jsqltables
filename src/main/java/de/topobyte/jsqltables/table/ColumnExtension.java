@@ -18,5 +18,7 @@
 package de.topobyte.jsqltables.table;
 
 public enum ColumnExtension {
-	NONE, PRIMARY_AUTO_INCREMENT, COLLATE_NOCASE;
+	NONE,
+	PRIMARY_AUTO_INCREMENT,
+	COLLATE_NOCASE;
 }

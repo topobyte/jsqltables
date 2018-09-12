@@ -17,15 +17,13 @@
 
 package de.topobyte.jsqltables.query.order;
 
-
 public class AliasOrder implements Order
 {
 
 	private String alias;
 	private OrderDirection direction;
 
-	public AliasOrder(String alias,
-			OrderDirection direction)
+	public AliasOrder(String alias, OrderDirection direction)
 	{
 		this.alias = alias;
 		this.direction = direction;

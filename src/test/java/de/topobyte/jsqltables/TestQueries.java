@@ -59,8 +59,9 @@ public class TestQueries
 		Select select5 = new Select(Tables.TABLE_STUDENTS);
 		select5.where(new CombinedCondition(BooleanOperator.AND,
 				new SingleCondition(select5.getMainTable(), "first_name",
-						Comparison.LIKE), new SingleCondition(select5
-						.getMainTable(), "last_name", Comparison.EQUAL)));
+						Comparison.LIKE),
+				new SingleCondition(select5.getMainTable(), "last_name",
+						Comparison.EQUAL)));
 		System.out.println(select5.sql());
 
 		Select select5b = new Select(Tables.TABLE_STUDENTS);
@@ -76,8 +77,9 @@ public class TestQueries
 		Select select6 = new Select(Tables.TABLE_STUDENTS);
 		select6.where(new CombinedCondition(BooleanOperator.AND,
 				new SingleCondition(select6.getMainTable(), "first_name",
-						Comparison.LIKE), new SingleCondition(select6
-						.getMainTable(), "last_name", Comparison.EQUAL)));
+						Comparison.LIKE),
+				new SingleCondition(select6.getMainTable(), "last_name",
+						Comparison.EQUAL)));
 		select6.order(new SingleOrder(select6.getMainTable(), "first_name",
 				OrderDirection.DESC));
 		System.out.println(select6.sql());
@@ -85,11 +87,14 @@ public class TestQueries
 		Select select7 = new Select(Tables.TABLE_STUDENTS);
 		select7.where(new CombinedCondition(BooleanOperator.AND,
 				new SingleCondition(select7.getMainTable(), "first_name",
-						Comparison.LIKE), new SingleCondition(select7
-						.getMainTable(), "last_name", Comparison.EQUAL)));
-		select7.order(new CombinedOrder(new SingleOrder(select7.getMainTable(),
-				"last_name", OrderDirection.DESC), new SingleOrder(select7
-				.getMainTable(), "first_name", OrderDirection.ASC)));
+						Comparison.LIKE),
+				new SingleCondition(select7.getMainTable(), "last_name",
+						Comparison.EQUAL)));
+		select7.order(new CombinedOrder(
+				new SingleOrder(select7.getMainTable(), "last_name",
+						OrderDirection.DESC),
+				new SingleOrder(select7.getMainTable(), "first_name",
+						OrderDirection.ASC)));
 		System.out.println(select7.sql());
 
 		Update update1 = new Update(Tables.TABLE_STUDENTS);

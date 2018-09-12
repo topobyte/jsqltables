@@ -19,6 +19,7 @@ package de.topobyte.jsqltables.query.order;
 
 public enum OrderDirection {
 
-	ASC, DESC
+	ASC,
+	DESC
 
 }

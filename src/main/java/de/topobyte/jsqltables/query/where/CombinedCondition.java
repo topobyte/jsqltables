@@ -17,7 +17,6 @@
 
 package de.topobyte.jsqltables.query.where;
 
-
 public class CombinedCondition implements Condition
 {
 

@@ -19,6 +19,7 @@ package de.topobyte.jsqltables.query.where;
 
 public enum BooleanOperator {
 
-	AND, OR
+	AND,
+	OR
 
 }

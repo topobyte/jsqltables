@@ -49,9 +49,11 @@ public class QueryBuilder
 			builder.append(column.getName());
 			builder.append(" ");
 			builder.append(dialect.getSqlKeyword(column.getColumnClass()));
-			if (column.getColumnExtension() == ColumnExtension.PRIMARY_AUTO_INCREMENT) {
+			if (column
+					.getColumnExtension() == ColumnExtension.PRIMARY_AUTO_INCREMENT) {
 				builder.append(" PRIMARY KEY AUTOINCREMENT");
-			} else if (column.getColumnExtension() == ColumnExtension.COLLATE_NOCASE) {
+			} else if (column
+					.getColumnExtension() == ColumnExtension.COLLATE_NOCASE) {
 				builder.append(" COLLATE NOCASE");
 			}
 			if (i < n - 1) {

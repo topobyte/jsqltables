@@ -29,8 +29,8 @@ public class TwoColumnsCondition implements Condition
 	private Comparison comparison;
 
 	public TwoColumnsCondition(TableReference firstTable,
-			TableReference secondTable, String firstColumn,
-			String secondColumn, Comparison comparison)
+			TableReference secondTable, String firstColumn, String secondColumn,
+			Comparison comparison)
 	{
 		this.firstTable = firstTable;
 		this.secondTable = secondTable;
