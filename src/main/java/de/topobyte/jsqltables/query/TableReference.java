@@ -17,6 +17,9 @@
 
 package de.topobyte.jsqltables.query;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.topobyte.jsqltables.table.Table;
 
 public class TableReference
@@ -39,6 +42,20 @@ public class TableReference
 	public String getAlias()
 	{
 		return alias;
+	}
+
+	public ColumnReference column(String name)
+	{
+		return new ColumnReference(this, name);
+	}
+
+	public List<ColumnReference> columns(String... names)
+	{
+		List<ColumnReference> columns = new ArrayList<>();
+		for (String name : names) {
+			columns.add(new ColumnReference(this, name));
+		}
+		return columns;
 	}
 
 }

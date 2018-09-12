@@ -15,11 +15,36 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with jsqltables. If not, see <http://www.gnu.org/licenses/>.
 
-package de.topobyte.jsqltables.query.group;
+package de.topobyte.jsqltables.query;
 
-import de.topobyte.jsqltables.query.Appendable;
-
-public interface GroupBy extends Appendable
+public class ColumnReference implements Appendable
 {
+
+	protected TableReference table;
+	protected String columnName;
+
+	public ColumnReference(TableReference table, String columnName)
+	{
+		this.table = table;
+		this.columnName = columnName;
+	}
+
+	public TableReference getTable()
+	{
+		return table;
+	}
+
+	public String getColumnName()
+	{
+		return columnName;
+	}
+
+	@Override
+	public void sql(StringBuilder b)
+	{
+		b.append(table.getAlias());
+		b.append(".");
+		b.append(columnName);
+	}
 
 }

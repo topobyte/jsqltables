@@ -17,9 +17,28 @@
 
 package de.topobyte.jsqltables.query.group;
 
-import de.topobyte.jsqltables.query.Appendable;
+import de.topobyte.jsqltables.query.ColumnReference;
+import de.topobyte.jsqltables.query.TableReference;
 
-public interface GroupBy extends Appendable
+public class SingleGroupBy implements GroupBy
 {
+
+	private ColumnReference column;
+
+	public SingleGroupBy(TableReference table, String column)
+	{
+		this(new ColumnReference(table, column));
+	}
+
+	public SingleGroupBy(ColumnReference column)
+	{
+		this.column = column;
+	}
+
+	@Override
+	public void sql(StringBuilder b)
+	{
+		column.sql(b);
+	}
 
 }

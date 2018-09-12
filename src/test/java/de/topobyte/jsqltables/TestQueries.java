@@ -22,9 +22,13 @@ import de.topobyte.jsqltables.query.Delete;
 import de.topobyte.jsqltables.query.Select;
 import de.topobyte.jsqltables.query.TableReference;
 import de.topobyte.jsqltables.query.Update;
+import de.topobyte.jsqltables.query.group.CombinedGroupBy;
+import de.topobyte.jsqltables.query.group.SingleGroupBy;
 import de.topobyte.jsqltables.query.order.CombinedOrder;
 import de.topobyte.jsqltables.query.order.OrderDirection;
 import de.topobyte.jsqltables.query.order.SingleOrder;
+import de.topobyte.jsqltables.query.select.CountAllColumn;
+import de.topobyte.jsqltables.query.select.NormalColumn;
 import de.topobyte.jsqltables.query.where.BooleanOperator;
 import de.topobyte.jsqltables.query.where.CombinedCondition;
 import de.topobyte.jsqltables.query.where.Comparison;
@@ -118,6 +122,23 @@ public class TestQueries
 		Delete delete2 = new Delete(Tables.TABLE_STUDENTS);
 		delete2.where(new SingleCondition(null, "matrikel", Comparison.EQUAL));
 		System.out.println(delete2.sql());
+
+		Select group1 = new Select(Tables.TABLE_STUDENTS);
+		group1.addSelectColumn(
+				new NormalColumn(group1.getMainTable(), "first_name"));
+		group1.addSelectColumn(new CountAllColumn("c"));
+		group1.group(new SingleGroupBy(group1.getMainTable(), "first_name"));
+		System.out.println(group1.sql());
+
+		Select group2 = new Select(Tables.TABLE_STUDENTS);
+		group2.addSelectColumn(
+				new NormalColumn(group2.getMainTable(), "first_name"));
+		group2.addSelectColumn(
+				new NormalColumn(group2.getMainTable(), "last_name"));
+		group2.addSelectColumn(new CountAllColumn("c"));
+		group2.group(new CombinedGroupBy(
+				group2.getMainTable().columns("first_name", "last_name")));
+		System.out.println(group2.sql());
 	}
 
 }
