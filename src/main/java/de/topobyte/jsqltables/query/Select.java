@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.topobyte.jsqltables.query.group.GroupBy;
+import de.topobyte.jsqltables.query.join.Join;
+import de.topobyte.jsqltables.query.join.SingleColumnJoin;
 import de.topobyte.jsqltables.query.order.Order;
 import de.topobyte.jsqltables.query.select.SelectColumn;
 import de.topobyte.jsqltables.query.where.Condition;
@@ -66,7 +68,8 @@ public class Select implements Query
 		TableReference joinTable = new TableReference(second,
 				alias(joins.size() + 2));
 		joinTables.add(joinTable);
-		joins.add(new Join(first, joinTable, firstColumn, secondColumn));
+		joins.add(new SingleColumnJoin(first, joinTable, firstColumn,
+				secondColumn));
 		return joinTable;
 	}
 
@@ -126,17 +129,7 @@ public class Select implements Query
 		b.append(mainTable.getAlias());
 		for (Join join : joins) {
 			b.append(" JOIN ");
-			b.append(join.getSecondTable().getTable().getName());
-			b.append(" ");
-			b.append(join.getSecondTable().getAlias());
-			b.append(" ON ");
-			b.append(join.getFirstTable().getAlias());
-			b.append(".");
-			b.append(join.getFirstColumn());
-			b.append(" = ");
-			b.append(join.getSecondTable().getAlias());
-			b.append(".");
-			b.append(join.getSecondColumn());
+			join.sql(b);
 		}
 		if (condition != null) {
 			b.append(" WHERE ");

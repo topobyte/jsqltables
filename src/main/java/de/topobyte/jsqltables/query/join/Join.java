@@ -15,44 +15,11 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with jsqltables. If not, see <http://www.gnu.org/licenses/>.
 
-package de.topobyte.jsqltables.query;
+package de.topobyte.jsqltables.query.join;
 
-public class Join
+import de.topobyte.jsqltables.query.Appendable;
+
+public interface Join extends Appendable
 {
-
-	private TableReference firstTable;
-	private TableReference secondTable;
-
-	private String firstColumn;
-	private String secondColumn;
-
-	public Join(TableReference firstTable, TableReference secondTable,
-			String firstColumn, String secondColumn)
-	{
-		this.firstTable = firstTable;
-		this.secondTable = secondTable;
-		this.firstColumn = firstColumn;
-		this.secondColumn = secondColumn;
-	}
-
-	public TableReference getFirstTable()
-	{
-		return firstTable;
-	}
-
-	public TableReference getSecondTable()
-	{
-		return secondTable;
-	}
-
-	public String getFirstColumn()
-	{
-		return firstColumn;
-	}
-
-	public String getSecondColumn()
-	{
-		return secondColumn;
-	}
 
 }
