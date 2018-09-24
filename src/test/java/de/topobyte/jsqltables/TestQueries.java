@@ -17,6 +17,9 @@
 
 package de.topobyte.jsqltables;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.topobyte.jsqltables.model.Tables;
 import de.topobyte.jsqltables.query.Delete;
 import de.topobyte.jsqltables.query.Select;
@@ -24,6 +27,7 @@ import de.topobyte.jsqltables.query.TableReference;
 import de.topobyte.jsqltables.query.Update;
 import de.topobyte.jsqltables.query.group.CombinedGroupBy;
 import de.topobyte.jsqltables.query.group.SingleGroupBy;
+import de.topobyte.jsqltables.query.join.Pair;
 import de.topobyte.jsqltables.query.order.CombinedOrder;
 import de.topobyte.jsqltables.query.order.OrderDirection;
 import de.topobyte.jsqltables.query.order.SingleOrder;
@@ -67,6 +71,14 @@ public class TestQueries
 		select2.join(tcs, Tables.TABLE_COURSES, "course", "id");
 
 		System.out.println(select2.sql());
+
+		Select select3 = new Select(Tables.TABLE_STUDENTS);
+		List<Pair> joinColumns = new ArrayList<>();
+		joinColumns.add(new Pair("first_name", "first_name"));
+		joinColumns.add(new Pair("last_name", "last_name"));
+		select3.join(Tables.TABLE_STUDENTS, joinColumns);
+
+		System.out.println(select3.sql());
 	}
 
 	private static void testWhere()

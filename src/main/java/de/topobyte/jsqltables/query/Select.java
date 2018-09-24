@@ -22,6 +22,8 @@ import java.util.List;
 
 import de.topobyte.jsqltables.query.group.GroupBy;
 import de.topobyte.jsqltables.query.join.Join;
+import de.topobyte.jsqltables.query.join.MultiColumnJoin;
+import de.topobyte.jsqltables.query.join.Pair;
 import de.topobyte.jsqltables.query.join.SingleColumnJoin;
 import de.topobyte.jsqltables.query.order.Order;
 import de.topobyte.jsqltables.query.select.SelectColumn;
@@ -70,6 +72,21 @@ public class Select implements Query
 		joinTables.add(joinTable);
 		joins.add(new SingleColumnJoin(first, joinTable, firstColumn,
 				secondColumn));
+		return joinTable;
+	}
+
+	public TableReference join(Table table, List<Pair> joinColumns)
+	{
+		return join(mainTable, table, joinColumns);
+	}
+
+	public TableReference join(TableReference first, Table second,
+			List<Pair> joinColumns)
+	{
+		TableReference joinTable = new TableReference(second,
+				alias(joins.size() + 2));
+		joinTables.add(joinTable);
+		joins.add(new MultiColumnJoin(first, joinTable, joinColumns));
 		return joinTable;
 	}
 
