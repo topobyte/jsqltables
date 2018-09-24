@@ -56,24 +56,52 @@ public class TestQueries
 
 	private static void testJoin()
 	{
+		Select select1 = new Select(Tables.TABLE_STUDENTS);
+		select1.join(Tables.TABLE_COURSES_STUDENTS, "id", "student");
+
+		System.out.println(select1.sql());
+
 		Select select2 = new Select(Tables.TABLE_STUDENTS);
-		select2.join(Tables.TABLE_COURSES_STUDENTS, "id", "student");
+		TableReference tcs = select2.join(Tables.TABLE_COURSES_STUDENTS, "id",
+				"student");
+		select2.join(tcs, Tables.TABLE_COURSES, "course", "id");
 
 		System.out.println(select2.sql());
-
-		Select select3 = new Select(Tables.TABLE_STUDENTS);
-		TableReference tcs = select3.join(Tables.TABLE_COURSES_STUDENTS, "id",
-				"student");
-		select3.join(tcs, Tables.TABLE_COURSES, "course", "id");
-
-		System.out.println(select3.sql());
 	}
 
 	private static void testWhere()
 	{
-		Select select4 = new Select(Tables.TABLE_STUDENTS);
-		select4.where(new SingleCondition(select4.getMainTable(), "first_name",
+		Select select1 = new Select(Tables.TABLE_STUDENTS);
+		select1.where(new SingleCondition(select1.getMainTable(), "first_name",
 				Comparison.LIKE));
+		System.out.println(select1.sql());
+
+		Select select2 = new Select(Tables.TABLE_STUDENTS);
+		select2.where(new CombinedCondition(BooleanOperator.AND,
+				new SingleCondition(select2.getMainTable(), "first_name",
+						Comparison.LIKE),
+				new SingleCondition(select2.getMainTable(), "last_name",
+						Comparison.EQUAL)));
+		System.out.println(select2.sql());
+
+		Select select3 = new Select(Tables.TABLE_STUDENTS);
+		select3.where(new CombinedCondition(BooleanOperator.OR,
+				new CombinedCondition(BooleanOperator.AND,
+						new SingleCondition(select3.getMainTable(),
+								"first_name", Comparison.LIKE),
+						new SingleCondition(select3.getMainTable(), "last_name",
+								Comparison.EQUAL)),
+				new InCondition(select3.getMainTable(), "foo", 5)));
+		System.out.println(select3.sql());
+
+		Select select4 = new Select(Tables.TABLE_STUDENTS);
+		select4.where(new CombinedCondition(BooleanOperator.AND,
+				new SingleCondition(select4.getMainTable(), "first_name",
+						Comparison.LIKE),
+				new SingleCondition(select4.getMainTable(), "last_name",
+						Comparison.EQUAL)));
+		select4.order(new SingleOrder(select4.getMainTable(), "first_name",
+				OrderDirection.DESC));
 		System.out.println(select4.sql());
 
 		Select select5 = new Select(Tables.TABLE_STUDENTS);
@@ -82,40 +110,12 @@ public class TestQueries
 						Comparison.LIKE),
 				new SingleCondition(select5.getMainTable(), "last_name",
 						Comparison.EQUAL)));
-		System.out.println(select5.sql());
-
-		Select select5b = new Select(Tables.TABLE_STUDENTS);
-		select5b.where(new CombinedCondition(BooleanOperator.OR,
-				new CombinedCondition(BooleanOperator.AND,
-						new SingleCondition(select5b.getMainTable(),
-								"first_name", Comparison.LIKE),
-						new SingleCondition(select5b.getMainTable(),
-								"last_name", Comparison.EQUAL)),
-				new InCondition(select5b.getMainTable(), "foo", 5)));
-		System.out.println(select5b.sql());
-
-		Select select6 = new Select(Tables.TABLE_STUDENTS);
-		select6.where(new CombinedCondition(BooleanOperator.AND,
-				new SingleCondition(select6.getMainTable(), "first_name",
-						Comparison.LIKE),
-				new SingleCondition(select6.getMainTable(), "last_name",
-						Comparison.EQUAL)));
-		select6.order(new SingleOrder(select6.getMainTable(), "first_name",
-				OrderDirection.DESC));
-		System.out.println(select6.sql());
-
-		Select select7 = new Select(Tables.TABLE_STUDENTS);
-		select7.where(new CombinedCondition(BooleanOperator.AND,
-				new SingleCondition(select7.getMainTable(), "first_name",
-						Comparison.LIKE),
-				new SingleCondition(select7.getMainTable(), "last_name",
-						Comparison.EQUAL)));
-		select7.order(new CombinedOrder(
-				new SingleOrder(select7.getMainTable(), "last_name",
+		select5.order(new CombinedOrder(
+				new SingleOrder(select5.getMainTable(), "last_name",
 						OrderDirection.DESC),
-				new SingleOrder(select7.getMainTable(), "first_name",
+				new SingleOrder(select5.getMainTable(), "first_name",
 						OrderDirection.ASC)));
-		System.out.println(select7.sql());
+		System.out.println(select5.sql());
 	}
 
 	private static void testUpdate()
