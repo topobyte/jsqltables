@@ -43,6 +43,19 @@ public class TestQueries
 		Select select1 = new Select(Tables.TABLE_STUDENTS);
 		System.out.println(select1.sql());
 
+		testJoin();
+
+		testWhere();
+
+		testUpdate();
+
+		testDelete();
+
+		testGroupBy();
+	}
+
+	private static void testJoin()
+	{
 		Select select2 = new Select(Tables.TABLE_STUDENTS);
 		select2.join(Tables.TABLE_COURSES_STUDENTS, "id", "student");
 
@@ -54,7 +67,10 @@ public class TestQueries
 		select3.join(tcs, Tables.TABLE_COURSES, "course", "id");
 
 		System.out.println(select3.sql());
+	}
 
+	private static void testWhere()
+	{
 		Select select4 = new Select(Tables.TABLE_STUDENTS);
 		select4.where(new SingleCondition(select4.getMainTable(), "first_name",
 				Comparison.LIKE));
@@ -100,7 +116,10 @@ public class TestQueries
 				new SingleOrder(select7.getMainTable(), "first_name",
 						OrderDirection.ASC)));
 		System.out.println(select7.sql());
+	}
 
+	private static void testUpdate()
+	{
 		Update update1 = new Update(Tables.TABLE_STUDENTS);
 		update1.addColum("first_name");
 		System.out.println(update1.sql());
@@ -115,14 +134,20 @@ public class TestQueries
 		update3.addColum("last_name");
 		update3.where(new SingleCondition(null, "matrikel", Comparison.EQUAL));
 		System.out.println(update3.sql());
+	}
 
+	private static void testDelete()
+	{
 		Delete delete1 = new Delete(Tables.TABLE_STUDENTS);
 		System.out.println(delete1.sql());
 
 		Delete delete2 = new Delete(Tables.TABLE_STUDENTS);
 		delete2.where(new SingleCondition(null, "matrikel", Comparison.EQUAL));
 		System.out.println(delete2.sql());
+	}
 
+	private static void testGroupBy()
+	{
 		Select group1 = new Select(Tables.TABLE_STUDENTS);
 		group1.addSelectColumn(
 				new NormalColumn(group1.getMainTable(), "first_name"));
