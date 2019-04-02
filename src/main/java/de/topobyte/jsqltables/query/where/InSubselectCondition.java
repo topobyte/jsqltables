@@ -17,6 +17,9 @@
 
 package de.topobyte.jsqltables.query.where;
 
+import java.util.Arrays;
+import java.util.List;
+
 import de.topobyte.jsqltables.query.Select;
 import de.topobyte.jsqltables.query.TableReference;
 
@@ -24,14 +27,20 @@ public class InSubselectCondition implements Condition
 {
 
 	private TableReference table;
-	private String column;
+	private List<String> columns;
 	private Select subselect;
 
 	public InSubselectCondition(TableReference table, String column,
 			Select subselect)
 	{
+		this(table, Arrays.asList(column), subselect);
+	}
+
+	public InSubselectCondition(TableReference table, List<String> columns,
+			Select subselect)
+	{
 		this.table = table;
-		this.column = column;
+		this.columns = columns;
 		this.subselect = subselect;
 	}
 
@@ -40,9 +49,9 @@ public class InSubselectCondition implements Condition
 		return table;
 	}
 
-	public String getColumn()
+	public List<String> getColumns()
 	{
-		return column;
+		return columns;
 	}
 
 	public Select getSubselect()
@@ -53,14 +62,31 @@ public class InSubselectCondition implements Condition
 	@Override
 	public void sql(StringBuilder b)
 	{
+		if (columns.size() == 1) {
+			column(b, table, columns.get(0));
+		} else {
+			b.append("(");
+			for (int i = 0; i < columns.size(); i++) {
+				column(b, table, columns.get(i));
+				if (i < columns.size() - 1) {
+					b.append(", ");
+				}
+			}
+			b.append(")");
+		}
+
+		b.append(" IN (");
+		b.append(subselect.sql());
+		b.append(")");
+	}
+
+	private void column(StringBuilder b, TableReference table, String column)
+	{
 		if (table != null) {
 			b.append(table.getAlias());
 			b.append(".");
 		}
 		b.append(column);
-		b.append(" IN (");
-		b.append(subselect.sql());
-		b.append(")");
 	}
 
 }
