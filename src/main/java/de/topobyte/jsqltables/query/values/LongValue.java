@@ -1,4 +1,4 @@
-// Copyright 2014 Sebastian Kuerten
+// Copyright 2019 Sebastian Kuerten
 //
 // This file is part of jsqltables.
 //
@@ -15,34 +15,22 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with jsqltables. If not, see <http://www.gnu.org/licenses/>.
 
-package de.topobyte.jsqltables.query;
+package de.topobyte.jsqltables.query.values;
 
-public class LimitOffset
+public class LongValue implements Value
 {
 
-	private int limit;
-	private int offset;
+	private long value;
 
-	public LimitOffset(int limit)
+	public LongValue(long value)
 	{
-		this.limit = limit;
-		this.offset = 0;
+		this.value = value;
 	}
 
-	public LimitOffset(int limit, int offset)
+	@Override
+	public void sql(StringBuilder b)
 	{
-		this.limit = limit;
-		this.offset = offset;
-	}
-
-	public int getLimit()
-	{
-		return limit;
-	}
-
-	public int getOffset()
-	{
-		return offset;
+		b.append(value);
 	}
 
 }

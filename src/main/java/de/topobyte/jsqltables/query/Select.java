@@ -27,6 +27,10 @@ import de.topobyte.jsqltables.query.join.Pair;
 import de.topobyte.jsqltables.query.join.SingleColumnJoin;
 import de.topobyte.jsqltables.query.order.Order;
 import de.topobyte.jsqltables.query.select.SelectColumn;
+import de.topobyte.jsqltables.query.values.IntegerValue;
+import de.topobyte.jsqltables.query.values.LongValue;
+import de.topobyte.jsqltables.query.values.Value;
+import de.topobyte.jsqltables.query.values.Wildcard;
 import de.topobyte.jsqltables.query.where.Condition;
 import de.topobyte.jsqltables.table.Table;
 
@@ -41,7 +45,8 @@ public class Select implements Query
 	private Condition condition = null;
 	private Order order;
 	private GroupBy group;
-	private LimitOffset limit = null;
+	private Value limit = null;
+	private Value offset = null;
 
 	public Select(Table table)
 	{
@@ -110,9 +115,34 @@ public class Select implements Query
 		this.order = order;
 	}
 
-	public void limit(LimitOffset limit)
+	public void limit()
 	{
-		this.limit = limit;
+		this.limit = new Wildcard();
+	}
+
+	public void limit(int limit)
+	{
+		this.limit = new IntegerValue(limit);
+	}
+
+	public void limit(long limit)
+	{
+		this.limit = new LongValue(limit);
+	}
+
+	public void offset()
+	{
+		this.offset = new Wildcard();
+	}
+
+	public void offset(int offset)
+	{
+		this.offset = new IntegerValue(offset);
+	}
+
+	public void offset(long offset)
+	{
+		this.offset = new LongValue(offset);
 	}
 
 	private String alias(int n)
@@ -162,9 +192,11 @@ public class Select implements Query
 		}
 		if (limit != null) {
 			b.append(" LIMIT ");
-			b.append(limit.getLimit());
+			limit.sql(b);
+		}
+		if (offset != null) {
 			b.append(" OFFSET ");
-			b.append(limit.getOffset());
+			offset.sql(b);
 		}
 		return b.toString();
 	}
