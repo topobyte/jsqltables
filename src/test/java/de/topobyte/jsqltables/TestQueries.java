@@ -146,6 +146,10 @@ public class TestQueries
 		update3.addColum("last_name");
 		update3.where(new SingleCondition(null, "matrikel", Comparison.EQUAL));
 		System.out.println(update3.sql());
+
+		String update4 = Tables.TABLE_STUDENTS
+				.constructUpdateStatement("matrikel");
+		System.out.println(update4);
 	}
 
 	private static void testDelete()

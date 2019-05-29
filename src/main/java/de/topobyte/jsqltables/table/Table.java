@@ -442,7 +442,7 @@ public class Table
 		builder.append(name);
 		builder.append(" SET ");
 
-		int index = nameToIndex.get(column);
+		int index = nameToIndex.get(column) - 1;
 		int num = columns.size() - 1;
 
 		int k = 0;
