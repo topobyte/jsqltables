@@ -22,6 +22,7 @@ public enum ColumnClass {
 	INT,
 	LONG,
 	DOUBLE,
-	VARCHAR;
+	VARCHAR,
+	BLOB;
 
 }

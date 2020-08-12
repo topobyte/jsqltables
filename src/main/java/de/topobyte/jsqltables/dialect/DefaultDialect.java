@@ -34,6 +34,8 @@ public class DefaultDialect implements Dialect
 			return "bigint";
 		case VARCHAR:
 			return "varchar";
+		case BLOB:
+			return "blob";
 		default:
 			return null;
 		}
